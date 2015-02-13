@@ -1,0 +1,58 @@
+﻿@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Place a new book</h2>
+
+@using (Ajax.BeginForm("CheckBook", "Book", new AjaxOptions
+{
+    InsertionMode = InsertionMode.Replace,
+    UpdateTargetId = "CheckBookResult",
+    LoadingElementId = "CheckBookLoading"
+}))
+{
+
+    <div class="col-md-4">
+        <div class="panel panel-primary">
+            <div class="panel-heading">Select a Room</div>
+            <div class="panel-body">
+                <select name="Room" class="form-control">
+                    @foreach (var room in ViewBag.Rooms)
+                {
+                        <option value="@room.Id">@room.Title</option>
+                    }
+                </select>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="panel panel-primary">
+            <div class="panel-heading">Provide a book time</div>
+            <div class="panel-body">
+                <div class="col-md-6">
+                    <input type="time" class="form-control" name="StartTime" value="08:00" />
+                </div>
+                <div class="col-md-6">
+                    <input type="time" class="form-control" name="EndTime" value="10:00" />
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="panel panel-primary">
+            <div class="panel-heading">Verify avaliability</div>
+            <div class="panel-body text-center">
+                <input type="submit" class="btn btn-primary" id="VerifyBook" value="Check Avaliability" />
+            </div>
+        </div>
+    </div>
+}
+
+<div class="clearfix"></div>
+
+<div id="CheckBookResult"></div>
+<div id="CheckBookLoading" class="text-center" style="display:none">
+    <i class="fa fa-spinner fa-spin fa-4x"></i>
+</div>
+
+<div class="clearfix"></div>
